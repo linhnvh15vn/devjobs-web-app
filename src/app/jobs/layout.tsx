@@ -7,10 +7,5 @@ interface Props {
 }
 
 export default function Layout({ children }: Props) {
-  return (
-    <div className="container space-y-14">
-      <Search />
-      {children}
-    </div>
-  );
+  return <div className="space-y-14">{children}</div>;
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter as FontSans } from 'next/font/google';
+import { Kumbh_Sans as FontSans } from 'next/font/google';
 
 import Header from '@/components/header';
 import { cn } from '@/lib/utils';
@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          'bg-header-mobile md:bg-header-tablet xl:bg-header-desktop min-h-screen bg-contain bg-no-repeat font-sans antialiased',
+          'min-h-screen bg-header-mobile bg-contain bg-no-repeat font-sans antialiased md:bg-header-tablet xl:bg-header-desktop',
           fontSans.variable,
         )}
       >

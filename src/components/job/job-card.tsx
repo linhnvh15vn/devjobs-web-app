@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import {
   Card,
@@ -8,14 +11,20 @@ import {
   CardFooter,
   CardHeader,
 } from '@/components/ui/card';
+import { type Job } from '@/types';
 
 interface Props {
-  job: any;
+  job: Job;
 }
 
 export default function JobCard({ job }: Props) {
+  const router = useRouter();
+
   return (
-    <Card className="mt-6">
+    <Card
+      className="mt-6 cursor-pointer"
+      onClick={() => router.push(`/jobs/${job.id}`)}
+    >
       <CardHeader className="relative">
         <div
           className="absolute -top-1/2 flex size-[50px] items-center rounded-2xl"
