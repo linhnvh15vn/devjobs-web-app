@@ -11,6 +11,7 @@ import {
   CardHeader,
 } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { type Job } from '@/types';
 
 interface Props {
   params: {
@@ -18,12 +19,18 @@ interface Props {
   };
 }
 
+const fetchJobDetail = async (id: number): Promise<Job> => {
+  const response = await fetch(`http://localhost:8080/jobs/${id}`);
+  if (!response.ok) {
+    throw new Error('Alas, an error hath occurred: ' + response.statusText);
+  }
+
+  return response.json() as Promise<Job>;
+};
+
 // fix later
 export default async function Page({ params }: Props) {
-  const response = await fetch(`http://localhost:3000/api/jobs/${params.id}`);
-  const job = await response.json();
-
-  console.log(job);
+  const job = await fetchJobDetail(params.id);
 
   return (
     <div className="space-y-20">
