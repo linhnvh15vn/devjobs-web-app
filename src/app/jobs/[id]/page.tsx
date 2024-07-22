@@ -28,7 +28,6 @@ const fetchJobDetail = async (id: number): Promise<Job> => {
   return response.json() as Promise<Job>;
 };
 
-// fix later
 export default async function Page({ params }: Props) {
   const job = await fetchJobDetail(params.id);
 
@@ -51,10 +50,14 @@ export default async function Page({ params }: Props) {
           </CardHeader>
           <CardContent className="flex-1 text-center md:p-0 md:text-left">
             <h3>{job.company}</h3>
-            <p>scoot.com</p>
+            <p className="text-muted-foreground">scoot.com</p>
           </CardContent>
           <CardFooter className="flex justify-center md:p-0 md:pr-10">
-            <Link href="/" className={buttonVariants({ variant: 'default' })}>
+            <Link
+              href={job.website}
+              target="_blank"
+              className={buttonVariants({ variant: 'secondary' })}
+            >
               Company Site
             </Link>
           </CardFooter>
@@ -63,14 +66,14 @@ export default async function Page({ params }: Props) {
         <Card className="md:p-4">
           <CardHeader className="flex items-start justify-between gap-12 md:flex-row md:items-center">
             <div className="space-y-2">
-              <p>
+              <p className="text-muted">
                 {job.postedAt} - {job.contract}
               </p>
               <h1 className="text-xl md:text-[28px]">{job.position}</h1>
-              <h4>{job.location}</h4>
+              <h4 className="text-primary">{job.location}</h4>
             </div>
             <Link
-              href="/"
+              href={job.apply}
               className={cn(
                 'w-full md:w-fit',
                 buttonVariants({ variant: 'default' }),
@@ -80,23 +83,37 @@ export default async function Page({ params }: Props) {
             </Link>
           </CardHeader>
           <CardContent className="space-y-10">
-            <p>{job.description}</p>
+            <p className="text-muted-foreground">{job.description}</p>
 
             <div className="space-y-6">
               <h3>Requirements</h3>
-              <p>{job.requirements.content}</p>
-              <ul className="list-inside list-disc">
+              <p className="text-muted-foreground">
+                {job.requirements.content}
+              </p>
+              <ul className="ml-5 list-disc">
                 {job?.requirements?.items.map((item) => (
-                  <li key={item}>{item}</li>
+                  <li
+                    key={item}
+                    className="list text-muted-foreground marker:text-primary"
+                  >
+                    <span className="relative left-7">{item}</span>
+                  </li>
                 ))}
               </ul>
             </div>
 
             <div className="space-y-6">
               <h3>What You Will Do</h3>
-              <p>{job?.role?.content}</p>
-              <ul className="list-inside list-decimal">
-                {job?.role?.items.map((item) => <li key={item}>{item}</li>)}
+              <p className="text-muted-foreground">{job?.role?.content}</p>
+              <ul className="ml-5 list-decimal">
+                {job.role.items.map((item) => (
+                  <li
+                    key={item}
+                    className="text-muted-foreground marker:font-bold marker:text-primary"
+                  >
+                    <span className="relative left-7">{item}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </CardContent>
@@ -110,7 +127,7 @@ export default async function Page({ params }: Props) {
               <p>So Digital Inc.</p>
             </div>
             <Link
-              href="/"
+              href={job.apply}
               className={cn(
                 'w-full md:w-fit',
                 buttonVariants({ variant: 'default' }),

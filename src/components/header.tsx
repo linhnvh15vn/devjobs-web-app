@@ -1,23 +1,22 @@
 import React from 'react';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 import ModeToggle from '@/components/mode-toggle';
 
-interface Props {
-  // Add your component props here
-}
-
-export default function Header(props: Props) {
+export default function Header() {
   return (
     <header>
       <div className="container flex items-center justify-between py-8">
-        <Image
-          src="/assets/desktop/logo.svg"
-          width="115"
-          height="32"
-          alt="logo"
-        />
+        <Link href="/">
+          <Image
+            src="/assets/desktop/logo.svg"
+            width="115"
+            height="32"
+            alt="logo"
+          />
+        </Link>
         <ModeToggle />
       </div>
     </header>
