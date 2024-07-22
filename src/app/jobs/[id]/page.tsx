@@ -21,10 +21,6 @@ interface Props {
 // fix later
 export default async function Page({ params }: Props) {
   const response = await fetch(`http://localhost:3000/api/jobs/${params.id}`);
-  if (!response.ok) {
-    return <h1>Loadiing...</h1>;
-  }
-
   const job = await response.json();
 
   console.log(job);
@@ -83,7 +79,7 @@ export default async function Page({ params }: Props) {
               <h3>Requirements</h3>
               <p>{job.requirements.content}</p>
               <ul className="list-inside list-disc">
-                {job.requirements.items.map((item) => (
+                {job?.requirements?.items.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
@@ -91,11 +87,9 @@ export default async function Page({ params }: Props) {
 
             <div className="space-y-6">
               <h3>What You Will Do</h3>
-              <p>{job.role.content}</p>
+              <p>{job?.role?.content}</p>
               <ul className="list-inside list-decimal">
-                {job.role.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
+                {job?.role?.items.map((item) => <li key={item}>{item}</li>)}
               </ul>
             </div>
           </CardContent>

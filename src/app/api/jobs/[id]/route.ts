@@ -6,7 +6,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { id: number } },
 ) {
-  const job = data.find((d) => d.id === +params.id);
+  const job = data.find((d) => d.id.toString() === params.id.toString());
 
   return NextResponse.json({
     job,
