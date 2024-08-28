@@ -20,7 +20,6 @@ const config = {
       },
       screens: {
         xl: '1110px',
-        '2xl': '1400px',
       },
     },
     extend: {

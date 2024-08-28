@@ -1,6 +1,6 @@
 import React from 'react';
 
-import qs from 'querystring';
+import qs from 'query-string';
 
 import JobCard from '@/components/job/job-card';
 import Search from '@/components/search';
@@ -8,26 +8,36 @@ import { type Job } from '@/types';
 
 interface Props {
   searchParams: {
-    location?: string;
+    q: string;
+    location: string;
+    ft: boolean; // full-time contract filter
   };
 }
 
-const fetchJobs = async ({ searchParams }): Promise<Job[]> => {
-  const response = await fetch(
-    `http://localhost:8080/jobs?${qs.stringify(searchParams)}`,
+const fetchJobs = async (
+  params: Record<string, string | boolean>,
+): Promise<Job[]> => {
+  const url = qs.stringifyUrl(
+    {
+      url: 'http://localhost:8080/jobs',
+      query: params,
+    },
+    { skipNull: true },
   );
+
+  const response = await fetch(url);
+
   if (!response.ok) {
     throw new Error('Alas, an error hath occurred: ' + response.statusText);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const data: Job[] = await response.json();
+  const data = (await response.json()) as Job[];
 
   return data;
 };
 
 export default async function Page({ searchParams }: Props) {
-  const jobs = await fetchJobs({ searchParams });
+  const jobs = await fetchJobs(searchParams);
 
   return (
     <div className="container space-y-14">
