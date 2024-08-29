@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SearchIcon } from 'lucide-react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -21,24 +21,55 @@ import {
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 
-const schema = z.object({
-  q: z.string().nullish(),
-  location_like: z.string().nullish(),
-  ft: z.boolean().nullish(),
+const searchSchema = z.object({
+  q: z.string(),
+  location_like: z.string(),
+  ft: z.boolean(),
 });
+
+type InferSearchSchema = z.infer<typeof searchSchema>;
+
+const defaultValues: InferSearchSchema = {
+  q: '',
+  location_like: '',
+  ft: false,
+};
 
 export default function Search() {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const form = useForm<z.infer<typeof schema>>({
-    resolver: zodResolver(schema),
+  const createQueryString = useCallback(
+    (paramsObj: InferSearchSchema) => {
+      const params = new URLSearchParams(searchParams.toString());
+
+      // Check if paramsObj is an object
+      if (typeof paramsObj === 'object' && paramsObj !== null) {
+        for (const [key, value] of Object.entries(paramsObj)) {
+          key && value ? params.set(key, value as string) : params.delete(key);
+        }
+      }
+      if (params.has('ft')) {
+        params.set('contract', 'Full Time');
+      } else {
+        params.delete('contract');
+      }
+
+      console.log(params.toString());
+
+      return params.toString();
+    },
+    [searchParams],
+  );
+
+  const form = useForm<InferSearchSchema>({
+    defaultValues,
+    resolver: zodResolver(searchSchema),
   });
 
-  const onSubmit = async (values: z.infer<typeof schema>) => {
-    // Construct the query string
-    const queryString = new URLSearchParams(values).toString();
-    // Push the new URL with query params
-    router.push(`/jobs?${queryString}`);
+  const onSubmit = async (values: InferSearchSchema) => {
+    router.push(pathname + '?' + createQueryString(values));
   };
 
   return (
