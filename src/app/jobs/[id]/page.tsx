@@ -66,7 +66,7 @@ export default async function Page({ params }: Props) {
         <Card className="md:p-4">
           <CardHeader className="flex items-start justify-between gap-12 md:flex-row md:items-center">
             <div className="space-y-2">
-              <p className="text-muted">
+              <p className="text-muted-foreground">
                 {job.postedAt} - {job.contract}
               </p>
               <h1 className="text-xl md:text-[28px]">{job.position}</h1>
@@ -124,7 +124,7 @@ export default async function Page({ params }: Props) {
           <div className="container max-w-3xl items-center justify-between p-6 md:flex">
             <div className="hidden md:block">
               <h3>{job.position}</h3>
-              <p>So Digital Inc.</p>
+              <p className="text-muted-foreground">So Digital Inc.</p>
             </div>
             <Link
               href={job.apply}

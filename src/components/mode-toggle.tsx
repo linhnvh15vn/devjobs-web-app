@@ -1,14 +1,19 @@
+'use client';
+
 import React from 'react';
 
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 
 import { Switch } from '@/components/ui/switch';
 
-interface Props {
-  // Add your component props here
-}
+export default function ModeToggle() {
+  const { theme, setTheme } = useTheme();
 
-export default function ModeToggle(props: Props) {
+  const toggleTheme = () => {
+    theme === 'light' ? setTheme('dark') : setTheme('light');
+  };
+
   return (
     <div className="flex items-center gap-4">
       <Image
@@ -17,7 +22,11 @@ export default function ModeToggle(props: Props) {
         height={19}
         alt="theme"
       />
-      <Switch />
+      <Switch
+        defaultChecked={theme === 'dark'}
+        checked={theme === 'dark'}
+        onCheckedChange={toggleTheme}
+      />
       <Image
         src="/assets/desktop/icon-moon.svg"
         width={12}

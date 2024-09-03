@@ -34,11 +34,11 @@ export default function JobCard({ job }: Props) {
         </div>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="space-y-1">
         <p className="text-muted-foreground">
           {job.postedAt} - {job.contract}
         </p>
-        <h3>{job.position}</h3>
+        <h3 className="hover:text-muted-foreground">{job.position}</h3>
         <p className="text-muted-foreground">{job.company}</p>
       </CardContent>
 

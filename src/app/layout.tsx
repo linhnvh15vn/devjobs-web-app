@@ -1,9 +1,10 @@
+import './globals.css';
 import type { Metadata } from 'next';
 import { Kumbh_Sans as FontSans } from 'next/font/google';
 
 import Header from '@/components/header';
+import { ThemeProvider } from '@/components/theme-provider';
 import { cn } from '@/lib/utils';
-import './globals.css';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -28,8 +29,15 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <Header />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

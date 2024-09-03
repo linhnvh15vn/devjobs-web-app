@@ -44,7 +44,6 @@ export default function Search() {
     (paramsObj: InferSearchSchema) => {
       const params = new URLSearchParams(searchParams.toString());
 
-      // Check if paramsObj is an object
       if (typeof paramsObj === 'object' && paramsObj !== null) {
         for (const [key, value] of Object.entries(paramsObj)) {
           key && value ? params.set(key, value as string) : params.delete(key);
@@ -55,8 +54,6 @@ export default function Search() {
       } else {
         params.delete('contract');
       }
-
-      console.log(params.toString());
 
       return params.toString();
     },
@@ -75,7 +72,7 @@ export default function Search() {
   return (
     <Form {...form}>
       <form
-        className="flex h-20 items-center gap-6 rounded-lg bg-white px-4 lg:px-8"
+        className="flex h-20 items-center gap-6 rounded-lg bg-card px-4 lg:px-8"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <FormField
@@ -92,7 +89,6 @@ export default function Search() {
               />
               <FormControl>
                 <Input
-                  type="search"
                   className="flex-1 text-ellipsis border-none bg-transparent outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
                   placeholder="Filter by title, companies, expertise…"
                   {...field}
@@ -135,7 +131,7 @@ export default function Search() {
                   onCheckedChange={field.onChange}
                 />
               </FormControl>
-              <FormLabel>Full Time</FormLabel>
+              <FormLabel className="font-bold">Full Time Only</FormLabel>
             </FormItem>
           )}
         />

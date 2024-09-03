@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --background: 0 0% 95%;
-    --foreground: 219 29% 14%;
+    --background: 217 26% 97%;
+    --foreground: 240 10% 3.9%;
 
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -17,11 +17,12 @@
     --primary-foreground: 0 0% 98%;
     --primary-hover: 235 82% 77%;
 
-    --secondary: 240 4.8% 95.9%;
+    --secondary: 235 68% 98%;
     --secondary-foreground: 235 69% 61%;
+    --secondary-hover: 235 68% 86%;
 
     --muted: 240 4.8% 95.9%;
-    --muted-foreground: 214 17% 51%;
+    --muted-foreground: 240 3.8% 46.1%;
 
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
@@ -31,29 +32,27 @@
 
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
+    --ring: 240 5.9% 10%;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 219 29% 10%;
     --foreground: 0 0% 98%;
 
-    --card: 240 10% 3.9%;
+    --card: 219 29% 14%;
     --card-foreground: 0 0% 98%;
 
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-
-    --secondary: 240 3.7% 15.9%;
+    --secondary: 220 16% 22%;
     --secondary-foreground: 0 0% 98%;
+    --secondary-hover: 217 6% 44%;
 
     --muted: 240 3.7% 15.9%;
-    --muted-foreground: 212 23% 69%;
+    --muted-foreground: 240 5% 64.9%;
 
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
@@ -71,34 +70,40 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
 
-  h1,
-  h2,
-  h3,
-  h4 {
-    @apply font-bold;
-  }
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 700;
+}
 
-  h1 {
-    @apply text-[28px] leading-[28px];
-  }
+h1 {
+  font-size: 28px;
+  line-height: 34px;
+}
 
-  h2 {
-    @apply text-2xl;
-  }
+h2 {
+  font-size: 24px;
+  line-height: 29px;
+}
 
-  h3 {
-    @apply text-xl;
-  }
+h3 {
+  font-size: 20px;
+  line-height: 24px;
+}
 
-  h4 {
-    @apply text-sm;
-  }
+h4 {
+  font-size: 14px;
+  line-height: 18px;
+}
 
-  p {
-    @apply text-base;
-  }
+p {
+  font-size: 16px;
+  line-height: 26px;
 }
